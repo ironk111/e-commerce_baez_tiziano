@@ -82,27 +82,36 @@ const producto = data.find(item => item.id === productId);
 
 // Generar el contenido del producto
 if (producto) {
-    let card = `<div class="row justify-content-center">
-                <div class="col-lg-8 col-md-10">
-                    <div class="card">
-                        <div class="row g-0">
-                            <div class="col-md-6">
-                                <img src="${producto.img}" class="img-fluid rounded-start" alt="${producto.nombre}">
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    <h5 class="card-title">${producto.nombre}</h5>
-                                    <p class="card-text poppins-light">Modelo: ${producto.modelo}</p>
-                                    <p class="card-text poppins-light">Stock: </p>
-                                    <h5 class="card-title">precio</h5>
-                                    <a href="#" class="btn btn-primary rounded-pill">Drive Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    document.querySelector("main").innerHTML = card;
+  let card = `<div class="row justify-content-center">
+              <div class="col-lg-8 col-md-10">
+                  <div class="card">
+                      <div class="row g-0">
+                          <div class="col-md-6">
+                              <img src="${producto.img}" class="img-fluid rounded-start" alt="${producto.nombre}">
+                          </div>
+                          <div class="col-md-6">
+                              <div class="card-body">
+                                  <h5 class="card-title">${producto.nombre}</h5>
+                                  <p class="card-text poppins-light">Modelo: ${producto.modelo}</p>
+                                  <h5 class="card-title">Precio</h5>
+                                  ${localStorage.getItem("email")
+                                  ? `<div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                      <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">+</button>
+                                        <button class="btn btn-outline-secondary" type="button">-</button>
+                                      </div>
+                                    </div>
+                                    <a href="#" class="btn btn-primary rounded-pill">Drive Now</a>`
+                                  : '<a href="/public/login.html" class="btn btn-primary rounded-pill">Iniciar sesión para comprar</a>'}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              </div>`;
+  document.querySelector("main").innerHTML = card;
 } else {
-    document.querySelector("main").innerHTML = `<p>Producto no encontrado.</p>`;
+  document.querySelector("main").innerHTML = "<p>Producto no encontrado.</p>";
 }
+
