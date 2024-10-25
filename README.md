@@ -12,10 +12,6 @@ La web proporciona una experiencia amigable para los usuarios, permitiéndoles f
 - CSS3, SCSS, Bootstrap: Para los estilos y diseño responsivo.
 - JavaScript: Para la funcionalidad dinámica.
 
-### 🚀Clona el repositorio:
-
-git clone https://github.com/ironk111/e-commerce_baez_tiziano.git
-
 ### 🤝Contribución
 Las contribuciones son bienvenidas. Si tienes sugerencias o encuentras algún error, no dudes en abrir un _issue_ o enviar un _pull request_.
 
