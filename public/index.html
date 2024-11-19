@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="shortcut icon" href="img/logo-dreamdrive-pagina.webp" />
   </head>
 <body>
@@ -26,13 +27,17 @@
       height: 100%;
       object-fit: cover;
     }
-    /*card container hover*/
-    .card-hover {
-      transition: opacity 0.3s ease-in-out;
-      opacity: 1;
+    /*card hover*/
+    .img-hover-zoom {
+      overflow: hidden;
     }
-    .card-hover:hover {
-      opacity: 0.8;  
+
+    .img-hover-zoom img {
+      transition: transform 0.3s ease;
+    }
+
+    .img-hover-zoom:hover img {
+      transform: scale(1.1); /* Agranda la imagen un 10% */
     }
     /* Spinner styles */
     #spinner {
@@ -57,24 +62,10 @@
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
               <!--acá se añaden los botones con js-->
               
-              <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>-->
             </ul>
-            <ul id="navRight">
+            <ul id="navRight" class="list-unstyled d-inline-flex align-items-center">
               
             </ul>
-            <div class="d-flex" role="search">
-              <input class="form-control me-2 rounded-4" placeholder="Search" aria-label="Search" id="input">
-              <button class="btn btn-primary rounded-pill" id="search">Search</button>
-            </div>
 
           </div>
         </div>
@@ -82,7 +73,11 @@
 </header>
   <h1 class="text-center pt-4"></h1>
   <div class="container mx-auto">
-    <section class="row row-cols-1 row-cols-md-3 g-4 m-md-3">
+    <div class="d-flex justify-content-center" role="search">
+      <input class="form-control me-2 rounded-4 w-25" placeholder="Search" aria-label="Search" id="input">
+      <button class="btn btn-primary rounded-pill" id="search">Search</button>
+    </div>
+    <section class="row row-cols-1 row-cols-md-3 g-4 m-md-3">Loading...
     </section>
   </div>
   <script src="navbar.js"></script>

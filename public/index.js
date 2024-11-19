@@ -8,6 +8,7 @@ let data = [
     modelo: 2017,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/1.jpg",
     category: "Sport",
+    stock: 10,
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ let data = [
     modelo: 2018,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/2.jpg",
     category: "Super",
+    stock: 10,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ let data = [
     modelo: 2022,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/3.jpg",
     category: "Sport",
+    stock: 10,
   },
   {
     id: 4,
@@ -29,6 +32,7 @@ let data = [
     modelo: 2018,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/4.jpg",
     category: "Super",
+    stock: 10,
   },
   {
     id: 5,
@@ -36,6 +40,7 @@ let data = [
     modelo: 1986,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/5.jpg",
     category: "Vintage",
+    stock: 10,
   },
   {
     id: 6,
@@ -43,6 +48,7 @@ let data = [
     modelo: 2019,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/6.jpg",
     category: "Hyper",
+    stock: 10,
   },
   {
     id: 7,
@@ -50,6 +56,7 @@ let data = [
     modelo: 1993,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/7.jpg",
     category: "Vintage",
+    stock: 10,
   },
   {
     id: 8,
@@ -57,6 +64,7 @@ let data = [
     modelo: 2019,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/8.jpg",
     category: "Hyper",
+    stock: 10,
   },
   {
     id: 9,
@@ -64,14 +72,15 @@ let data = [
     modelo: 2023,
     img: "https://66d9ee6caa07a954166f10ed--gregarious-melba-cacdba.netlify.app/9.jpg",
     category: "Super",
+    stock: 10,
   },
 ];
 
 // Mostrar las cards en el section del body
 function card(product) {
   let cardsArray = product.map((producto) => `<div class="col">
-      <div class="card h-100 card-hover">
-        <div class="image-container">
+      <div class="card h-100">
+        <div class="image-container img-hover-zoom">
           <img src="${producto.img}" class="img-fluid" alt="${producto.nombre}">
         </div>
         <div class="card-body">
@@ -86,7 +95,7 @@ function card(product) {
 }
 
 //Invoco la función y le paso el objeto entero
-card(data);
+// card(data);
 
 //-----------------------BUSQUEDA------------------------------
 
@@ -138,12 +147,17 @@ categoryButtons.forEach((button) => {
   });
 });
 
-//-----BOTON DE HOME-----eliminado por: está redireccionado con href en index.html
-// variable
-/*const homeButton = document.querySelector("#homeButton");
-
-// Evento para mostrar todas las cards
+/* Evento para mostrar todas las cards
 homeButton.addEventListener("click", () => {
   document.querySelector("h1").innerText = "Dreams";
   card(data);
 });*/
+
+// Loading cards
+const promiseCards = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(card(data))
+  }, 3000)
+})
+
+// promiseCards.then(() => card(data));
