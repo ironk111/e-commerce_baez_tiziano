@@ -158,8 +158,8 @@ function decreaseItem() {
 
 function buy(){
   Swal.fire({
-    text: "¿Quieres añadir esto al carrito?",
-    confirmButtonText: "Si",
+    text: "¿Do you want to add this to cart?",
+    confirmButtonText: "Yes",
     cancelButtonText: "No",
     showCancelButton: true,
     showCloseButton: true,
@@ -175,11 +175,11 @@ function buy(){
 
 //ADD TO CART
 function addItem() {
-  let cart = JSON.parse(localStorage.getItem("cart"))
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   const idProduct = Number(window.location.search.split("=")[1])
   const product = data.find(item => item.id === idProduct)
-  const existsIdCart = cart.some(item => item.producto.id === idProduct)
+  const existsIdCart = cart.some(item => item.product?.id === idProduct)
 
   if(existsIdCart){
     cart = cart.map(item => {
@@ -200,10 +200,12 @@ function addItem() {
   localStorage.setItem("quantity", JSON.stringify(quantity))
 
   const quantityTag = document.querySelector("#quantity")
-  quantityTag.innerText = quantity
+  if (quantityTag) {
+    quantityTag.innerText = quantity;
+  }
   
   Toastify({
-    text: "Agregaste producto/s al carrito",
+    text: "You added product/s to cart",
     style: {
       background: "#000",
     },
@@ -212,4 +214,6 @@ function addItem() {
     },
   }).showToast();
 
+  // Recargar página
+  
 }

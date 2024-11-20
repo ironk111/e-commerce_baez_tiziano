@@ -1,14 +1,9 @@
-function auth(){
-    if (localStorage.getItem("email") == null){
-        location.href = "/public/index.html" 
-    } 
-} auth();
 
 const cardsSection = document.querySelector("#cart #cards");
 const btnClearCart = document.querySelector("#btn-clear-cart");
 
-function getCart(cards) {
-    const list = cards.map(
+function getCart(data) {
+    const list = data.map(
         card => `
             <div class="card border-shadow-none">
                 <div class="card-body">
@@ -22,13 +17,13 @@ function getCart(cards) {
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mt-3">
-                                        <p class="text-muted mb-2">Precio</p>
+                                        <p class="text-muted mb-2">Price</p>
                                         <h5 class="mb-0 mt-2">$${card.product.price}</h5>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="mt-3">
-                                        <p class="text-muted mb-2">Cantidad</p>
+                                        <p class="text-muted mb-2">Quantity</p>
                                         <h5 class="mb-0 mt-2">${card.quantity}</h5>
                                     </div>
                                 </div>
@@ -40,7 +35,7 @@ function getCart(cards) {
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mt-3">
-                                        <p class="text-muted mb-2" onclick="removeItem(${card.product.id})">Eliminar</p>
+                                        <a class="btn btn-primary rounded-pill mb-2" onclick="removeItem(${card.product.id})">Eliminar</a>
                                     </div>
                                 </div>
                             </div>
@@ -52,10 +47,10 @@ function getCart(cards) {
     cardsSection.innerHTML = list;
 }
 
-function total(cards) {
+function total(data) {
     let cartTotal = document.getElementById("card-total")
-    let total = cards.length > 0
-        ? cards.reduce((acumulado, actual) => acumulado + actual.product.price * actual.quantity, 0)
+    let total = data.length > 0
+        ? data.reduce((acumulado, actual) => acumulado + actual.product.price * actual.quantity, 0)
         : 0;
 
     cartTotal.innerText = "$" + total;
@@ -80,7 +75,7 @@ function finishOrder(){
     if(localStorage.getItem("quantity") == 0){
 
         Toastify({
-            text: "Error! Al parecer no tiene productos en el carrito...",
+            text: "Error! You don't have Dreams...",
             style: {
               background: "red",
             },
@@ -91,8 +86,8 @@ function finishOrder(){
 
     } else {
         Swal.fire({
-            text: "¿Estás seguro/a de querer añadir esto al carrito?",
-            confirmButtonText: "Sí",
+            text: "Are you sure?",
+            confirmButtonText: "Yes",
             cancelButtonText: "No",
             showCancelButton: true,
             showCloseButton: true,
@@ -100,30 +95,40 @@ function finishOrder(){
             cancelButtonColor: "red"
           }).then(result => {
             if (result.isConfirmed){
-              const datos = {
+              
+            const datos = {
+                user: localStorage.getItem("email").split("@")[0],
+                items: JSON.parse(localStorage.getItem("cart"))
+            }
+    
+            fetch(
+                "https://6736a17baafa2ef222310933.mockapi.io/orders", 
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(datos),
+                } 
+            )
+                .then(respuesta => respuesta.json())
+                .then(datas =>
+                    Toastify({
+                        text: `Thanks for purchase ${datas.user}, your order is number ${datas.id}`,
+                        style: {
+                            background: "#000",
+                        },
+                        offset: {
+                            y: 250,
+                        },
+                    }).showToast())
+                    cleanCart()
 
-                user: localStorage.getItem("email"),
-              }
-    
-              fetch("https://6736a17baafa2ef222310933.mockapi.io/orders", {
-                method: "POST",
-                body: JSON.stringify(datos),
-              })
-    
-              fetch("https://6736a17baafa2ef222310933.mockapi.io/orders", {
-                method: "GET",
-              }).then(respuesta => respuesta.json()).then(datas =>
-                
-                Toastify({
-                text: `Gracias por su compra ${datas.at(-1).user}, su orden es la numero ${datas.at(-1).id}`,
-                style: {
-                  background: "#000",
-                },
-                offset: {
-                  y: 250 
-                },
-              }).showToast())
-              cleanCart()
+                .catch(() => {
+                    Swal.fire({
+                        text: "Error, try again",
+                        confirmButtonColor: "#000",
+                        confirmButtonText: "Ok"
+                    })
+                })
             }
         })
     }

@@ -25,7 +25,7 @@ document.querySelector("header nav div div ul").innerHTML = html.join("");
 //------LOGIN
 const navRight = document.querySelector("#navRight")
 navRight.innerHTML = `${localStorage.getItem("email")
-    ? `<li>Hola, ${localStorage.getItem("email")}</li><li onclick="logOut()"><a href="/public/index.html" class="btn btn-primary rounded-pill">Log Out</a></li><a href="/public/cart.html"><li><img height="35" src="/public/img/cart.png"><b id="quantity">${localStorage.getItem("quantity")}</b></li></a>`
+    ? `<li class="me-3">Hola, ${localStorage.getItem("email")}</li><li class="me-3" onclick="logOut()"><a href="/public/index.html" class="btn btn-primary rounded-pill">Log Out</a></li><li ><a href="/public/cart.html"><img height="35" src="/public/img/cart.png"><b id="quantity">${localStorage.getItem("quantity")}</b></a></li>`
     : `<li><a href="/public/login.html" class="btn btn-primary rounded-pill">Log In</a></li>`}`
 
 function logOut() {
